@@ -1,0 +1,62 @@
+<html>
+<head> 
+	<meta charset="UTF-8">
+	<title>proyectogisweb</title>
+	<link rel="stylesheet" href="css/leaflet.css" />
+	
+	<style> 
+ 
+ 	 body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+		
+	.leaflet-popup-content-wrapper {
+    width: 420px;
+	height: 400px;
+	}
+	
+	iframe {
+	width: 400px;
+	height: 350px;
+	}
+ 	</style> 
+</head>  
+	<body>
+	<script src="js/leaflet.js"></script>
+	<script src="js/leaflet.wms.js"></script>
+ 
+	<div id ="map"> </div> 
+	<script>
+ 
+	//*****************PROPIEDADES DE MAPA GENERAL**********************//
+	var map = L.map(
+		'map',
+		{
+			zoomControl:true,
+			attributionControl: false
+		}).setView([-18.01451695, -70.2519869895198], 20);
+		
+	//*****************MAPA BASE*******************************//
+	// OPEN STREET MAP
+	var osm = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+	L.marker([-18.01451695, -70.2519869895198],{draggable: true}).addTo(map);
+L.control.scale().addTo(map);
+		
+	//*****************LISTA DE SERVICIOS*******************************//
+		
+	var wmsGeneral = L.tileLayer.wms("http://localhost:8080/geoserver/PROYECTO_WEBGIS/wms?", {
+	   layers: "PROYECTO_WEBGIS:RESTAURANTES",//gisweb:Departamentos
+	   format: 'image/png',
+	   transparent: true,
+	   version: '1.1.1',
+	   attribution: "CAEG"
+	}).addTo(map);
+	
+	</script>
+	</body> 
+</html>
